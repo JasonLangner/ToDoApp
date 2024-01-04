@@ -86,10 +86,11 @@ button {
 /** tasks **/
 .tasks {
   border-radius: 6px;
-  background-color: #52525B;
-  list-style-type: none;  
+  background-color: #52525B;  
   padding: 16px;
-
+  display:flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .task {
