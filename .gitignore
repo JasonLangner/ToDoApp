@@ -1,0 +1,31 @@
+# Environment
+.env*
+!.env.example
+
+# IDE directories files
+.idea/
+.phpintel/
+.vscode/
+
+# macOS files
+._*
+.DS_Store
+
+# npm
+node_modules/
+
+# Production
+production/
+
+# Sensitive files
+*.log
+*.sql*
+
+# Windows files
+$RECYCLE.BIN/
+Desktop.ini
+ehthumbs.db
+Thumbs.db
+
+# .gitkeep
+!/**/.gitkeep
