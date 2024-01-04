@@ -20,6 +20,7 @@
   box-sizing: border-box;
 }
 
+
 /** font Einbindung **/
 @font-face {
   font-family: 'Nunito';
@@ -28,11 +29,80 @@
 }
 
 
-/** styling **/
+/** Allgemein **/
 body {
   background-color: #3F3F46;
   font-family: 'Nunito', system-ui, sans-serif;
   color: white;
 }
 
+button {
+  line-height: 0;
+}
 
+.header, .sticky, .tasks {
+  margin: auto 10px auto 10px;
+}
+
+/** App **/
+.app {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 50rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+/** Header **/
+.header {
+  text-align: center;
+  border-radius: 0px 0px 6px 6px;
+  background-color: #52525B;
+  padding: 16px;
+}
+.header-title {
+  font-size: 32px;
+  font-weight: 600;
+}
+
+
+/** sticky **/
+.sticky {
+  display: flex;
+  background-color: #52525B;
+  padding: 10px 16px;
+  border-radius: 6px;
+}
+.sticky-add {
+  border-radius: 50%;
+  background-color: #71717A;
+  padding: 12px;
+  margin-left: auto;
+}
+
+
+/** tasks **/
+.tasks {
+  border-radius: 6px;
+  background-color: #52525B;
+  list-style-type: none;  
+  padding: 16px;
+
+}
+
+.task {
+  font-size: 18px;
+  padding: 16px;
+  border-radius: 6px;
+  background-color: #E11D48;
+  display: flex;
+  align-items: center;
+}
+
+.task-buttons {
+  margin-left: auto;
+  display: flex;
+  gap: 12px;
+}
