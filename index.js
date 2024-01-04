@@ -1,8 +1,7 @@
-
-
 let tasks = document.querySelector('.tasks')
 
 const createTask = (prompt) => {
+  
   const html = `
   <li class="task">
   <span class="task-text">${prompt}</span>
@@ -15,15 +14,23 @@ const createTask = (prompt) => {
   </div>
  </li>
  `;
-  const node = document.createRange().createContextualFragment(html);
+  
+  const node = new DOMParser().parseFromString(html, "text/html").body.firstElementChild;
+
+  let done = node.querySelector('.task-done');
+  
+  let cancel = node.querySelector('.task-cancel');
+  
   tasks.appendChild(node);
 }
 
 // Add button 
-let stickyadd = document.querySelector('.sticky-add')
+let stickyadd = document.querySelector('.sticky-add');
+
 stickyadd.addEventListener('click', () => {
+  
   let task = prompt("What do you want to do?", "");
-  console.log(task);
+  
   createTask(task);
 })
 
