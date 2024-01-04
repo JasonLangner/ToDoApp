@@ -1,6 +1,6 @@
 {
-  "name": "simple-starter",
-  "version": "1.1.0",
+  "name": "todo_app",
+  "version": "0.0.1",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
