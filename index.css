@@ -85,6 +85,7 @@ button {
 }
 
 .sticky-progress-fill {
+  width: 0%;
   height:100%;
   background-color: #84CC16;
   border-radius: 20px;

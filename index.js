@@ -1,4 +1,22 @@
 let tasks = document.querySelector('.tasks')
+const config = { attributes: true, childList: true, subtree: true };
+
+let progress = document.querySelector('.sticky-progress-fill');
+
+
+const callback = (mutationList, observer) => {
+    let taskAll = document.querySelectorAll(".task");
+    let taskComplete = document.querySelectorAll(".task.done");
+
+  var progressPercent = 100/taskAll.length*taskComplete.length;
+   progress.style.width = `${progressPercent}%`;
+  }
+
+
+const observer = new MutationObserver(callback);
+
+observer.observe(tasks, config);
+
 
 const createTask = (prompt) => {
 
@@ -64,4 +82,3 @@ stickyadd.addEventListener('click', () => {
 
 })
 
-// Progress bar
