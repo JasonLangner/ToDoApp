@@ -1,7 +1,7 @@
 let tasks = document.querySelector('.tasks')
 
 const createTask = (prompt) => {
-  
+
   const html = `
   <li class="task">
   <span class="task-text">${prompt}</span>
@@ -14,24 +14,30 @@ const createTask = (prompt) => {
   </div>
  </li>
  `;
-  
+
   const node = new DOMParser().parseFromString(html, "text/html").body.firstElementChild;
-  
-// Done button
+
+  // Done button
   let done = node.querySelector('.task-done');
   done.addEventListener('click', doneTask);
-  
-  function doneTask(){
-    this.closest('li').classList.add('done');
+
+  function doneTask() {
+    node.classList.toggle('done');
+    
+    if (node.classList.contains('done')) {
+      done.querySelector('.icon').src = '/icons/Icons=Undo.svg';
+    } else {
+      done.querySelector('.icon').src = '/icons/Icons=Check.svg';
+    }
   }
 
 
-// Cancel button
+  // Cancel button
   let cancel = node.querySelector('.task-cancel');
   cancel.addEventListener('click', cancelTask);
-  
-  function cancelTask(){
-    this.closest('li').remove();
+
+  function cancelTask() {
+    node.remove();
   }
 
   tasks.appendChild(node);
@@ -41,11 +47,21 @@ const createTask = (prompt) => {
 let stickyadd = document.querySelector('.sticky-add');
 
 stickyadd.addEventListener('click', () => {
-  
-  let task = prompt("What do you want to do?", "");
 
-  createTask(task);
+  try {
+    let task = prompt("What do you want to do?");
+
+    if (task.length === 0) {
+      return;
+    }
+    createTask(task);
+  }
+  catch (error){
+    console.warn(error);
+    alert("You didn't wrote a task in your textarea")
+   }
+
+
 })
 
-// 
-
+// Progress bar
