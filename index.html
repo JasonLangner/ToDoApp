@@ -19,10 +19,13 @@
 
     <div class="sticky">
       <div class="sticky-progress">
+      <div class="sticky-progress-text">Progress</div>
+      <div class="sticky-progress-bar">
         <div class="sticky-progress-fill">
         </div>
       </div>
-      
+      </div>
+
       <button class="sticky-add">
         <img class="icon" src="/icons/Icons=Add.svg" alt="add">
       </button>
@@ -31,21 +34,11 @@
 
     <ul class="tasks">
       
-      
-      <template id="taskTemplate">
-      <li class="task">
-        <span class="task-text">I am a Task</span>
-        <div class="task-buttons">
-        <button class="task-done">
-          <img class="icon" src="/icons/Icons=Check.svg" alt="check">
-        </button>
-        <button class="task-cancel">
-          <img class="icon" src="/icons/Icons=Cancel.svg" alt="cancel"></button>
-        </div>
-       </li>
-      </template>
-
-
+      <div class="Filter">
+        <button class="incomplete button" >Incomplete</button>
+        <button class="complete button">Complete</button>
+        <button class="reset button">Reset</button>
+      </div>
     </ul>
 
   </div>
