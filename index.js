@@ -42,11 +42,11 @@ const callback = (mutationList, observer) => {
   }
 }
   
-
 const observer = new MutationObserver(callback);
 
 observer.observe(tasks, config);
 
+// Filter
 for (let button of buttonList) {
   button.addEventListener('click', () => {
 
@@ -61,14 +61,26 @@ for (let button of buttonList) {
 
 
 
-
-
 // create Task
-const createTask = (prompt) => {
+const createTask = (prompt, local = false) => {
 
+  let storage = {
+    text: prompt,  
+    id: Date.now(),
+    isCompleted: false,
+  }
+ 
+  if (!local) {
+    localStorage.setItem(storage.id, JSON.stringify(storage));
+  } else {
+    storage = local;
+  }
+
+
+  
   const html = `
-  <li class="task">
-  <span class="task-text">${prompt}</span>
+  <li class="task" id="${storage.id}">
+  <span class="task-text">${storage.text}</span>
   <div class="task-buttons">
   <button class="task-done">
     <img class="icon" src="/icons/Icons=Check.svg" alt="check">
@@ -80,6 +92,7 @@ const createTask = (prompt) => {
  `;
 
   const node = new DOMParser().parseFromString(html, "text/html").body.firstElementChild;
+  
 
   // Done button
   let done = node.querySelector('.task-done');
@@ -90,10 +103,23 @@ const createTask = (prompt) => {
 
     if (node.classList.contains('done')) {
       done.querySelector('.icon').src = '/icons/Icons=Undo.svg';
+      storage.isCompleted = true;
+      localStorage.setItem(storage.id, JSON.stringify(storage));
+    
     } else {
       done.querySelector('.icon').src = '/icons/Icons=Check.svg';
+      storage.isCompleted = false;
+      localStorage.setItem(storage.id, JSON.stringify(storage));
     }
   }
+
+
+
+  if(storage.isCompleted) {
+    node.classList.add('done');
+    done.querySelector('.icon').src = '/icons/Icons=Undo.svg';
+  }
+
 
 
   // Cancel button
@@ -102,10 +128,19 @@ const createTask = (prompt) => {
 
   function cancelTask() {
     node.remove();
+    localStorage.removeItem(storage.id);
   }
 
   tasks.appendChild(node);
 }
+
+// render Task
+
+for(let key of Object.keys(localStorage)) {
+  let task = localStorage.getItem(key);
+ createTask("",JSON.parse(task)); 
+}
+
 
 // Add button 
 let stickyadd = document.querySelector('.sticky-add');
