@@ -16,11 +16,24 @@ const createTask = (prompt) => {
  `;
   
   const node = new DOMParser().parseFromString(html, "text/html").body.firstElementChild;
-
+  
+// Done button
   let done = node.querySelector('.task-done');
+  done.addEventListener('click', doneTask);
   
+  function doneTask(){
+    this.closest('li').classList.add('done');
+  }
+
+
+// Cancel button
   let cancel = node.querySelector('.task-cancel');
+  cancel.addEventListener('click', cancelTask);
   
+  function cancelTask(){
+    this.closest('li').remove();
+  }
+
   tasks.appendChild(node);
 }
 
@@ -30,7 +43,7 @@ let stickyadd = document.querySelector('.sticky-add');
 stickyadd.addEventListener('click', () => {
   
   let task = prompt("What do you want to do?", "");
-  
+
   createTask(task);
 })
 
