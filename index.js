@@ -131,11 +131,13 @@ const createTask = (prompt, local = false) => {
       done.querySelector('.icon').src = '/icons/Icons=Undo.svg';
       storage.isCompleted = true;
       localStorage.setItem(storage.id, JSON.stringify(storage));
+      taskText.disabled = true;
 
     } else {
       done.querySelector('.icon').src = '/icons/Icons=Check.svg';
       storage.isCompleted = false;
       localStorage.setItem(storage.id, JSON.stringify(storage));
+      taskText.disabled = false;
     }
   }
 
@@ -143,6 +145,7 @@ const createTask = (prompt, local = false) => {
   if (storage.isCompleted) {
     node.classList.add('done');
     done.querySelector('.icon').src = '/icons/Icons=Undo.svg';
+    taskText.disabled = true;
   }
 
 
