@@ -34,7 +34,14 @@ body {
   background-color: #3F3F46;
   font-family: 'Nunito', system-ui, sans-serif;
   color: white;
+  min-width: 360px;
 }
+
+.task-text {
+  word-break: break-all;
+  display: block;
+  min-width: 0;
+} 
 
 button {
   line-height: 0;
@@ -76,6 +83,8 @@ button {
   padding: 10px 16px;
   border-radius: 6px;
   gap: 16px;
+  position: sticky;
+  top: 0;
 }
 
 .sticky-progress {
@@ -149,5 +158,6 @@ button {
 .done {
   text-decoration: line-through;
   background-color: #71717a;
+  color: #a1a1aa;
 }
 

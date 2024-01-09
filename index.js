@@ -24,11 +24,11 @@ const callback = (mutationList, observer) => {
   if (complete.classList.contains('active')) {
     for (let task of taskIncomplete) {
       task.style.display = ('none');
-    } 
+    }
   } else {
     for (let task of taskIncomplete) {
       task.style.display = ('flex');
-    } 
+    }
   }
 
   if (incomplete.classList.contains('active')) {
@@ -38,10 +38,10 @@ const callback = (mutationList, observer) => {
   } else {
     for (let task of taskComplete) {
       task.style.display = ('flex');
-    } 
+    }
   }
 }
-  
+
 const observer = new MutationObserver(callback);
 
 observer.observe(tasks, config);
@@ -65,11 +65,11 @@ for (let button of buttonList) {
 const createTask = (prompt, local = false) => {
 
   let storage = {
-    text: prompt,  
+    text: prompt,
     id: Date.now(),
     isCompleted: false,
   }
- 
+
   if (!local) {
     localStorage.setItem(storage.id, JSON.stringify(storage));
   } else {
@@ -77,14 +77,14 @@ const createTask = (prompt, local = false) => {
   }
 
 
-  
+
   const html = `
   <li class="task" id="${storage.id}">
-  <span class="task-text">${storage.text}</span>
+  <input class="task-text" value='${storage.text}' readonly>
   <div class="task-buttons">
   <button class="task-done">
     <img class="icon" src="/icons/Icons=Check.svg" alt="check">
-  </button>
+  </button>  
   <button class="task-cancel">
     <img class="icon" src="/icons/Icons=Cancel.svg" alt="cancel"></button>
   </div>
@@ -92,7 +92,33 @@ const createTask = (prompt, local = false) => {
  `;
 
   const node = new DOMParser().parseFromString(html, "text/html").body.firstElementChild;
-  
+
+
+  // Edit
+  let taskText = node.querySelector('.task-text');
+  taskText.addEventListener('click', editText)
+
+  function editText() {
+    taskText.readOnly = false;
+  }
+
+  taskText.addEventListener("keypress", function (enter) {
+
+    if (enter.key === "Enter") {
+      taskText.readOnly = true;
+      storage.text = taskText.value;
+      localStorage.setItem(storage.id, JSON.stringify(storage));
+      taskText.blur();
+      
+      if (taskText.value.length === 0) {
+        node.remove();
+        localStorage.removeItem(storage.id);
+      }
+    }
+
+
+  })
+
 
   // Done button
   let done = node.querySelector('.task-done');
@@ -105,7 +131,7 @@ const createTask = (prompt, local = false) => {
       done.querySelector('.icon').src = '/icons/Icons=Undo.svg';
       storage.isCompleted = true;
       localStorage.setItem(storage.id, JSON.stringify(storage));
-    
+
     } else {
       done.querySelector('.icon').src = '/icons/Icons=Check.svg';
       storage.isCompleted = false;
@@ -114,12 +140,10 @@ const createTask = (prompt, local = false) => {
   }
 
 
-
-  if(storage.isCompleted) {
+  if (storage.isCompleted) {
     node.classList.add('done');
     done.querySelector('.icon').src = '/icons/Icons=Undo.svg';
   }
-
 
 
   // Cancel button
@@ -136,9 +160,9 @@ const createTask = (prompt, local = false) => {
 
 // render Task
 
-for(let key of Object.keys(localStorage)) {
+for (let key of Object.keys(localStorage)) {
   let task = localStorage.getItem(key);
- createTask("",JSON.parse(task)); 
+  createTask("", JSON.parse(task));
 }
 
 
